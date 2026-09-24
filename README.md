@@ -1,6 +1,7 @@
 # jts — JavaScript to Slint
 
-A compact, token-efficient reference for AI coding assistants writing
-[Slint](https://slint.dev) UI code from JavaScript (and a little Python).
+Compact, token-efficient Slint reference for AI coding assistants (JS/Node first, some Python).
+Goal: use Slint faster and make fewer mistakes.
 
-Goal: let an AI use Slint quickly and correctly, with fewer mistakes.
+**AI: read [`INDEX.md`](INDEX.md) first, then only the file(s) you need.**
+Verified against Slint 1.x docs (docs.slint.dev). Verify version-sensitive items against the installed version.
