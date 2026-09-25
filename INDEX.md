@@ -6,6 +6,7 @@
 | .slint syntax: props, callbacks, layout, for/if, states, animation, globals | ref/slint-syntax.md |
 | Node/JS API: load, props, callbacks, models, globals, event loop | ref/js-api.md |
 | Python API | ref/python-api.md |
+| Upstream repos/examples to consult | ref/sources.md |
 | Minimal working app (slint + js + py) | ref/example.md |
 
 Rules of thumb: dashes in .slint names -> camelCase in JS, snake_case in Python.

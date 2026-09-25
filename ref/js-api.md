@@ -12,7 +12,7 @@ win.submit("x");                  // invoke callback
 await win.run();                  // show + run loop until window closed
 ```
 
-- Only `export`ed components are on `ui`. Names: `my-prop` -> `myProp`.
+- Only `export`ed components are on `ui`. Names: package README says dashed names may be used as declared or with underscores (`my_prop`); official examples (todo) use underscores. Docs site says camelCase; unverified.
 - Types: int/float->Number, bool->Boolean, string->String, color/brush->RgbaColor object, image->ImageData, struct->plain object, enum->string (or `ui.EnumName.value`), `[T]`->array.
 - **Models**: assigning array copies. Update by reassigning. For live mutation use `new slint.ArrayModel([1,2])` (`.push()`, `.remove(i,n)`, `.set(i,v)` notify UI); custom models subclass `slint.Model` (`rowCount()`, `rowData(i)`, `setRowData(i,v)`, `notify.rowAdded(i,n)`...).
 - **Structs**: `win.person = { name: "Ann", age: 3 }`; read returns a copy (mutating it does not update UI).
@@ -23,3 +23,4 @@ await win.run();                  // show + run loop until window closed
 - Timers: `slint.Timer`; simple: `setTimeout`/`setInterval` work but run only while the loop is running.
 - Inline source: `slint.loadSource(src, "virtual.slint")`.
 - Callback return values: return correct type (`() => "text"` for `-> string`).
+- Official JS todo example: `app.todo_model = new slint.ArrayModel([...])`; `model.push({title, checked:false})`; `model.rowData(i)`; `model.remove(i, 1)`; `app.todo_added = (text) => {...}`; `app.run()`.
