@@ -1,5 +1,9 @@
 # jts index (read this, then load only what you need)
 
+**FIRST: consult the official Slint AI skill, https://github.com/slint-ui/ai-plugins (`skills/slint/`), before or alongside jts.**
+Scope: `.slint` rules are backend-independent. JS/Python are translations/examples; the same applies to
+Node, WASM/web, Python, C++, Rust (see interop.md in ai-plugins for Rust/C++).
+
 | Need | File |
 |---|---|
 | Common failures (unwanted stretching!) — skim ALWAYS | ref/mistakes.md |
