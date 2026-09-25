@@ -2,7 +2,7 @@
 
 | Need | File |
 |---|---|
-| Common failures — skim ALWAYS | ref/mistakes.md |
+| Common failures (unwanted stretching!) — skim ALWAYS | ref/mistakes.md |
 | .slint syntax: props, callbacks, layout, for/if, states, animation, globals | ref/slint-syntax.md |
 | Node/JS API: load, props, callbacks, models, globals, event loop | ref/js-api.md |
 | Python API | ref/python-api.md |

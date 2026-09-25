@@ -1,5 +1,12 @@
 # Common mistakes (check before writing code)
 
+0. **Unwanted stretching (most common layout bug)**: an element with no explicit size fills its parent, and children in a layout share leftover space, so a Rectangle/layout with no `height` swells to fill the window. Fix, pick one:
+   - `height: 40px;` (or `min-height`/`max-height`; `preferred-height` only a hint, layout may still grow it)
+   - `vertical-stretch: 0;` (same for `horizontal-stretch` / width) so it stays at its preferred size
+   - `alignment: start;` on the parent Vertical/HorizontalLayout so children keep natural size and pack to one end
+   - Nested layout that must hug its content: give the wrapping Rectangle/layout `vertical-stretch: 0` too.
+   Set an explicit height on every Rectangle/container you don't want to fill; text/buttons size to content by default.
+
 1. **Naming**: `.slint` `my-prop` -> JS `comp.myProp`, Py `comp.my_prop`. Same for callbacks/globals' members.
 2. **Private props unreachable**: default visibility is `private`. Declare `in`, `out`, `in-out` (or `private`) explicitly to expose to host.
 3. **`in` props are host-writable only**; `out` props are host-readable only (set inside .slint). Use `in-out` for both.

@@ -61,3 +61,4 @@ Facts:
 - Comments: `//` and `/* */`.
 - Inheritance: `component A inherits B {}`; `@children` places child elements passed by parent.
 - Access other elements: `elem.prop`; `Palette`, `Colors` builtin namespaces.
+- Sizing: no explicit size + not in a layout => fills parent. In a layout, stretch factors share free space; use `height`, `vertical-stretch: 0`, or layout `alignment: start` to stop growth (see mistakes.md #0).
