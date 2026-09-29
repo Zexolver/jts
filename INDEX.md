@@ -11,6 +11,8 @@ Node, WASM/web, Python, C++, Rust (see interop.md in ai-plugins for Rust/C++).
 | Node/JS API: load, props, callbacks, models, globals, event loop | ref/js-api.md |
 | Python API | ref/python-api.md |
 | Upstream repos/examples to consult | ref/sources.md |
+| std-widgets.slint component list | ref/widgets.md |
+| JS/Python glue patterns (editable lists, dialogs, async, theming, timers) | ref/patterns.md |
 | Minimal working app (slint + js + py) | ref/example.md |
 
 Rules of thumb: dashes in .slint names -> camelCase in JS, snake_case in Python.

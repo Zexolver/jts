@@ -28,3 +28,7 @@
 19. **`=` vs `:`**: `prop: expr;` is a reactive binding at element scope; `prop = expr;` assigns inside callbacks. `in` props can't be assigned inside the component. Calling callbacks/functions from a binding requires them `pure`.
 20. **Don't bind defaults**: an explicit `x: 0` inside a layout overrides layout placement.
 21. **Fill rules**: Rectangle, TouchArea, FocusScope and every layout fill their parent; Text and Image take preferred size. Outside a layout, an implicitly sized element with no x/y is *centered* (set `x: 0; y: 0;`).
+22. **Right-click menus**: use builtin `ContextMenuArea`, not a hand-rolled overlay — it gets keyboard-menu-key support and accessibility for free. `MenuBar` goes directly on the `Window`.
+23. **Overlay/popover panel placed directly under `Window` fills the window** by default (same rule as #0/#21) — set `height: layout.preferred-height;` to size it to content.
+24. **`key-pressed` on a FocusScope only sees keys the focused child rejected.** For a shortcut that must win over a TextInput (e.g. Ctrl+A), use `capture-key-pressed`, which runs before the child.
+25. **Don't hand-draw icon glyphs as inline `Path`.** Use `Image { source: @image-url("x.svg"); colorize: Palette.foreground; }` for monochrome icons that should match the theme; `Path` is for computed/animated shapes.
