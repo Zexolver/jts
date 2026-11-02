@@ -49,3 +49,15 @@ enum/bool `in property` like `Theme.preference` if the user can override light/d
 
 slint: `Timer { interval: 1s; running: true; triggered => { root.tick += 1; } }` — often simpler
 than a host-side timer when the driving state already lives in `.slint`.
+
+## UI patterns (chat/mobile-style apps; observed working on Android + desktop)
+
+- **Long-press**: put a `TouchArea` last (on top) plus
+  `property <bool> down: ta.pressed; property <bool> fired; changed down => { if (!self.down) { self.fired = false; } }`
+  and `Timer { interval: 500ms; running: root.down && !root.fired; triggered => { root.fired = true; root.long-pressed(); } }`.
+- **Spinner**: SVG arc as `Image { colorize: Palette.accent-background; property <angle> spin; transform-rotation: self.spin; animate spin { duration: 900ms; iteration-count: -1; easing: linear; } init => { self.spin = 360deg; } }` inside `if busy:` so `init` re-runs each time it appears. Elapsed time: `Timer { interval: 1s; running: busy; triggered => { secs += 1; } }`, reset via a `changed` hook on a bool property.
+- **Modal dialog**: full-size dim `Rectangle { background: #000000a0; TouchArea { clicked => { close(); } } Rectangle { width: min(parent.width - 48px, 420px); height: card.preferred-height; TouchArea {} card := VerticalLayout { ... } } }` (the empty inner `TouchArea` swallows clicks on the card).
+- **Draft that survives restarts**: global `in-out property <string> draft; callback draft-changed(string);`; input `edited => { Chat.draft = self.text; Chat.draft-changed(self.text); }`; host persists it; restore with `property <string> restored: Chat.draft; changed restored => { if (input.text != self.restored) { input.text = self.restored; } }`. `edited` fires for user edits only, so clear explicitly after sending.
+- **Restylable drop-down**: wrap `ComboBox` like the `AppButton` wrapper (mistakes.md #34): pill `Rectangle` showing `model[current-index]`, an SVG chevron, and a `PopupWindow` with `for option[i] in model` rows.
+- **Icons**: SVG + `colorize`, not `Path` (mistakes.md #25).
+- **Backend quirks**: Slint's Android backend has shown keyboard glitches (late echo of older text re-inserting deleted characters during backspace repeat, cursor remaining after the keyboard closes, keyboard reopening on return). Those are backend-level; check upstream issues/changelog for your version rather than working around them in `.slint`.
