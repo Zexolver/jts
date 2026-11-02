@@ -15,4 +15,4 @@ only the host-side glue (load, props, callbacks, models) differs.
 2. Then read [`INDEX.md`](INDEX.md) and load only the jts file(s) you need. jts is a small complement
    to the official skill (extra gotchas, JS/Python API notes), not a replacement.
 
-Verified against Slint 1.x docs (docs.slint.dev). Verify version-sensitive items against the installed version.
+Verified against Slint 1.x docs (docs.slint.dev); upstream latest checked: 1.18.1. Verify version-sensitive items against the installed version.
