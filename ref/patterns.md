@@ -49,3 +49,15 @@ enum/bool `in property` like `Theme.preference` if the user can override light/d
 
 slint: `Timer { interval: 1s; running: true; triggered => { root.tick += 1; } }` — often simpler
 than a host-side timer when the driving state already lives in `.slint`.
+
+## Chat UI patterns (verified in a Slint app on Android + desktop)
+
+- **Long-press** a bubble: `TouchArea` declared *last* (on top) plus
+  `property <bool> down: ta.pressed; property <bool> fired; changed down => { if (!self.down) { self.fired = false; } }`
+  and `Timer { interval: 500ms; running: root.down && !root.fired; triggered => { root.fired = true; root.long-pressed(); } }`.
+- **Spinner**: an SVG arc (`assets/spinner.svg`) in `Image { colorize: Palette.accent-background; property <angle> spin; transform-rotation: self.spin; animate spin { duration: 900ms; iteration-count: -1; easing: linear; } init => { self.spin = 360deg; } }`, placed inside `if busy:` so `init` runs each time it appears. Elapsed time: `Timer { interval: 1s; running: busy; triggered => { secs += 1; } }`, reset with a `changed` hook on a `property <bool> is-busy: Chat.busy;`.
+- **Modal dialog**: a full-size dim `Rectangle { background: #000000a0; TouchArea { clicked => { close(); } } Rectangle { width: min(parent.width - 48px, 420px); height: card.preferred-height; TouchArea {} card := VerticalLayout { ... } } }` (the empty inner `TouchArea` swallows clicks on the card).
+- **Draft that survives restarts**: a global `in-out property <string> draft; callback draft-changed(string);`; in the input `edited => { Chat.draft = self.text; Chat.draft-changed(self.text); }`; the host stores it per chat; to restore, a root `property <string> restored: Chat.draft; changed restored => { if (input.text != self.restored) { input.text = self.restored; } }`. (`edited` fires for user edits only, so clear it explicitly after sending.)
+- **Drop-down that can be restyled**: wrap `ComboBox` like the `AppButton` wrapper (mistakes.md #34): a pill `Rectangle` showing `model[current-index]`, an SVG chevron, and a `PopupWindow` with `for option[i] in model` rows.
+- **Icons**: three-dots, chevron, spinner as SVG assets with `colorize` (not `Path`/Rectangles), as the official skill asks.
+- **Android note**: keyboard glitches seen with Slint's Android backend (a late echo of older text putting deleted characters back while backspace repeats, the cursor drop staying after the keyboard closes, the keyboard reopening on return) are backend issues; the fixes used are documented in https://github.com/OpenJarvisProject/ojp/blob/main/vendor/OJP-PATCHES.md.
